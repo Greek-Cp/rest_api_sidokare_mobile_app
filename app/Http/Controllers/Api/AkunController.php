@@ -34,24 +34,31 @@ class AkunController extends Controller
 
             $request -> validate([
                 'email' => 'required',
+                'username' => 'required',
+                'nomor_telepon' => 'required',
                 'password' => 'required',
-                'nik' => 'required',
-                'kata_sandi' => 'required',
-                'konfirmasi_kata_sandi' => 'required',
+                'role' => 'required'
             ]);
-            $akun = Akun::create(
-                ['email' => $request -> email,
-                'password'=> $request-> password,
-                'nik' => $request-> nik,
-                'kata_sandi'=> $request-> kata_sandi,
-                'konfirmasi_kata_sandi'=>$request-> konfirmasi_kata_sandi]
-            );
-            $data = Akun::where('id_akun','=',$akun->id) -> get();
-            if($data){
-                return ApiFormater::createApi(200,'Succes',$data);
-            } else{
+            $checkDataExists = Akun::where('email','=',$request->email) -> exists();
 
-                return ApiFormater::createApi(400,'Failed',$data);
+            if($checkDataExists != 1){
+                $akun = Akun::create(
+                    ['email' => $request -> email,
+                    'username'=> $request-> username,
+                    'nomor_telepon' => $request-> nomor_telepon,
+                    'password'=> $request-> password,
+                    'role'=>$request-> role]
+            );
+                $data = Akun::where('id_akun','=',$akun->id) -> get();
+                if($data){
+                    return ApiFormater::createApi(200,'Succes',$data);
+                } else{
+                    return ApiFormater::createApi(400,'Failed',$data);
+                }
+
+
+            } else{
+                return ApiFormater::createApi(400,'Akun Telah Ada',['pesan','akun telah terdaftar']);
             }
         } catch(Exception $e){
             return ApiFormater::createApi(400,'Failed',$e);
