@@ -29,6 +29,38 @@ class AkunController extends Controller
         }
     }
 
+    public function getOtp(Request $request){
+        try{
+            $request -> validate(['email'=>'required']);
+            $dataAccount = Akun::where('email','=',$request->email)->first();
+            if($dataAccount){
+                $status = ['pesan'=> 'Mengambil Kode Otp Berhasil',
+            'kode_otp' => $dataAccount['otp']];
+            return ApiFormater::createApi(200,'Sukses',$status);
+            } else{
+                $status =['pesan' => 'Mengambil Kode Otp Gagal',
+            ];
+            return ApiFormater::createApi(400,'Gagal',$status);
+            }
+        } catch(Exception $e){
+        }
+    }
+    public function verifikasiAccount(Request $request){
+        try{
+            $request -> validate(['email'=>'required',]);
+            $dataAccount = Akun::where('email','=',$request->email);
+            $dataAccount -> update(['status_verif'=>'1']);
+            if ($dataAccount) {
+                $status = ['pesan' => 'Verifikasi Akun Berhasil', 'kode' => '1'];
+                return ApiFormater::createApi(200, 'Sukses', $status);
+            } else {
+                $status = ['pesan' => 'Akun tidak ditemukan', 'kode' => '0'];
+                return ApiFormater::createApi(404, 'Not Found', $status);
+            }
+        }catch(Exception $e){
+            echo $e;
+        }
+    }
     public function register(Request $request){
         try{
 
@@ -37,7 +69,9 @@ class AkunController extends Controller
                 'username' => 'required',
                 'nomor_telepon' => 'required',
                 'password' => 'required',
-                'role' => 'required'
+                'role' => 'required',
+                'otp' => 'required',
+                'nama' => 'required'
             ]);
             $checkDataExists = Akun::where('email','=',$request->email) -> exists();
 
@@ -47,7 +81,9 @@ class AkunController extends Controller
                     'username'=> $request-> username,
                     'nomor_telepon' => $request-> nomor_telepon,
                     'password'=> $request-> password,
-                    'role'=>$request-> role]
+                    'role'=>$request-> role,
+                    'otp' => $request-> otp,
+                    'nama' => $request->nama]
             );
                 $data = Akun::where('id_akun','=',$akun->id) -> get();
                 if($data){
