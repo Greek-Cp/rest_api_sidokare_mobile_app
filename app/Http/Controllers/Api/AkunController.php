@@ -73,7 +73,7 @@ class AkunController extends Controller
                 'otp' => 'required',
                 'nama' => 'required'
             ]);
-            $checkDataExists = Akun::where('email','=',$request->email) -> exists();
+            $checkDataExists = Akun::where('email','=',$request->email)   -> exists();
 
             if($checkDataExists != 1){
                 $akun = Akun::create(
