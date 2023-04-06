@@ -55,7 +55,32 @@ class AkunController extends Controller
                 return ApiFormater::createApi(200, 'Sukses', $status);
             } else {
                 $status = ['pesan' => 'Akun tidak ditemukan', 'kode' => '0'];
-                return ApiFormater::createApi(404, 'Not Found', $status);
+                return ApiFormater::createApi(404, 'Gagal', $status);
+            }
+        }catch(Exception $e){
+            echo $e;
+        }
+    }
+
+    public function updatePassword(Request $request){
+        try{
+            $request -> validate(['email' => 'required','password'=>'required']);
+            $data = Akun::where('email','=',$request->email);
+            $checkAcc = Akun::where('email','=',$request->email) -> exists();
+
+            echo $checkAcc . ":" . $request->email;
+            if($checkAcc == 1){
+                $data -> update(['password'=> $request-> password]);
+                if ($data) {
+                    $status = ['pesan' => 'Ubah Sandi Berhasil', 'kode' => '1'];
+                    return ApiFormater::createApi(200, 'Sukses', $status);
+                } else {
+                    $status = ['pesan' => 'Ubah Sandi Gagal', 'kode' => '0'];
+                    return ApiFormater::createApi(404, 'Not Found', $status);
+                }
+            } else{
+                  $status = ['pesan' => 'Ubah Sandi Gagal', 'kode' => '0'];
+                    return ApiFormater::createApi(404, 'Not Found', $status);
             }
         }catch(Exception $e){
             echo $e;
