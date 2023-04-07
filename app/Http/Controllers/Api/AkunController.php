@@ -47,6 +47,7 @@ class AkunController extends Controller
     }
     public function verifikasiAccount(Request $request){
         try{
+
             $request -> validate(['email'=>'required',]);
             $dataAccount = Akun::where('email','=',$request->email);
             $dataAccount -> update(['status_verif'=>'1']);

@@ -22,6 +22,8 @@ Route::post('akun/get_otp',[AkunController::class,'getOtp']);
 Route::post('akun/verifikasi_akun',[AkunController::class,'verifikasiAccount']);
 Route::post('akun/updatePassword',[AkunController::class,'updatePassword']);
 Route::get('berita/get_berita',[BeritaController::class,'getBeritaTerkini']);
+Route::get('berita/specific_berita',[BeritaController::class,'getBeritaSpesific']);
+
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
