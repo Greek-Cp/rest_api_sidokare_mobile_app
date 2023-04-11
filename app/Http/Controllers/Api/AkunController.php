@@ -29,6 +29,19 @@ class AkunController extends Controller
         }
     }
 
+    public function checkEmail(
+        Request $request
+    ){
+        $request -> validate(['email'=>'required']);
+        $akun = Akun::where('email','=',$request->email) -> exists();
+        if($akun == 1){
+            return ApiFormater::createApi(200,"Berhasil",['Kode'=>"1","Pesan" => "akun telah ada"]);
+        } else {
+            return ApiFormater::createApi(400,"Berhasil",['Kode'=>"1","Pesan" => "akun telah ada"]);
+
+        }
+    }
+
     public function getOtp(Request $request){
         try{
             $request -> validate(['email'=>'required']);
