@@ -37,4 +37,11 @@ class PengajuanPPIDController extends Controller
     $list_ppid = PengajuanPPIDModel::all();
     return ApiFormater::createApi(200,'Berhasil',$list_ppid);
     }
+    public function get_pengajuan_by_id(Request $request){
+        $request -> validate(['id_akun' => 'required']);
+        $list_ppid_by_id = PengajuanPPIDModel::all()-> where('id_akun','=',$request->id_akun);
+        return ApiFormater::createApi(200,'Berhasil',$list_ppid_by_id);
+
+    }
+
 }

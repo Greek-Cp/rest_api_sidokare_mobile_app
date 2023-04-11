@@ -26,6 +26,7 @@ Route::get('berita/get_berita',[BeritaController::class,'getBeritaTerkini']);
 Route::post('berita/specific_berita',[BeritaController::class,'getBeritaSpesific']);
 Route::post('pengajuan/ppid',[PengajuanPPIDController::class,'create_pengajuan']);
 Route::get('pengajuan/getpengajuan',[PengajuanPPIDController::class,'get_pengajuan']);
+Route::post('pengajuan/getpengajuanbyid',[PengajuanPPIDController::class,'get_pengajuan_by_id']);
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
