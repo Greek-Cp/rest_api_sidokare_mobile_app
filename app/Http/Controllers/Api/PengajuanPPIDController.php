@@ -20,9 +20,8 @@ class PengajuanPPIDController extends Controller
                 'kategori_ppid' => 'required',
                 'upload_file_pendukung' => 'required'
             ]);
-
             $PengajuanPPID = PengajuanPPIDModel::create([
-                'id_akun' => $request-> id_akun
+                'id _akun' => $request-> id_akun
             ,'judul_laporan' => $request-> judul_laporan,
             'isi_laporan' => $request-> isi_laporan,
             'asal_pelapor' => $request-> asal_pelapor,
@@ -41,7 +40,7 @@ class PengajuanPPIDController extends Controller
         $request -> validate(['id_akun' => 'required']);
         $list_ppid_by_id = PengajuanPPIDModel::all()-> where('id_akun','=',$request->id_akun);
         return ApiFormater::createApi(200,'Berhasil',$list_ppid_by_id);
-
     }
+
 
 }
