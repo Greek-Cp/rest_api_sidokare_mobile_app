@@ -4,6 +4,7 @@ namespace App\Http\Controllers\api;
 
 use App\Helpers\ApiFormater;
 use App\Http\Controllers\Controller;
+use App\Models\PengajuanKeluhan;
 use App\Models\PengajuanPPIDModel;
 use Illuminate\Http\Request;
 
@@ -21,7 +22,7 @@ class PengajuanPPIDController extends Controller
                 'upload_file_pendukung' => 'required'
             ]);
             $PengajuanPPID = PengajuanPPIDModel::create([
-                'id _akun' => $request-> id_akun
+                'id_akun' => $request-> id_akun
             ,'judul_laporan' => $request-> judul_laporan,
             'isi_laporan' => $request-> isi_laporan,
             'asal_pelapor' => $request-> asal_pelapor,
@@ -32,6 +33,7 @@ class PengajuanPPIDController extends Controller
             return ApiFormater::createApi(200,'Succes',['kode'=>'1','data'=> $PengajuanPPID]);
         }
 
+
     public function get_pengajuan(){
     $list_ppid = PengajuanPPIDModel::all();
     return ApiFormater::createApi(200,'Berhasil',$list_ppid);
@@ -41,4 +43,11 @@ class PengajuanPPIDController extends Controller
         $list_ppid_by_id = PengajuanPPIDModel::all()-> where('id_akun','=',$request->id_akun);
         return ApiFormater::createApi(200,'Berhasil',$list_ppid_by_id);
     }
+    public function create_pengajuan_keluhan(Request $request){
+
+
+        return ApiFormater::createApi(200,'Succes',['kode'=>'1','data'=> "hello"]);
+
+    }
+
 }

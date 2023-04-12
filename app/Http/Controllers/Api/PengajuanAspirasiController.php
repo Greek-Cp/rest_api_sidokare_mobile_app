@@ -1,0 +1,45 @@
+<?php
+
+namespace App\Http\Controllers\Api;
+
+use App\Helpers\ApiFormater;
+use App\Http\Controllers\Controller;
+use App\Models\PengajuanAspirasi;
+use Illuminate\Http\Request;
+use Exception;
+
+class PengajuanAspirasiController extends Controller
+{
+    public function buat_aspirasi(Request $request){
+        try{
+            $request->validate([
+                "id_akun" => "required",
+                "judul_aspirasi" => "required",
+                "isi_aspirasi" => "required",
+                "upload_file_pendukung" => "required"
+            ]);
+            $pengajuanApirasi = PengajuanAspirasi::create([
+                'id_akun' => $request->id_akun,
+                'judul_aspirasi' => $request->judul_aspirasi,
+                'isi_aspirasi' => $request->isi_aspirasi,
+                'upload_file_pendukung' => $request->upload_file_pendukung,
+            ]);
+            return ApiFormater::createApi(200,'Succeas',['kode'=>'1',
+            'data'=> $pengajuanApirasi]);
+        } catch (Exception $e){
+            return ApiFormater::createApi(200,'Succeas',['kode'=>'1',
+            'data'=> $e-> getMessage()]);
+
+        }
+
+    }
+    public function get_aspirasi(){
+        $list_ppid = PengajuanAspirasi::all();
+        return ApiFormater::createApi(200,'Berhasil',$list_ppid);
+        }
+        public function get_aspirasi_by_id(Request $request){
+            $request -> validate(['id_akun' => 'required']);
+            $list_ppid_by_id = PengajuanAspirasi::all()-> where('id_akun','=',$request->id_akun);
+            return ApiFormater::createApi(200,'Berhasil',$list_ppid_by_id);
+        }
+}
