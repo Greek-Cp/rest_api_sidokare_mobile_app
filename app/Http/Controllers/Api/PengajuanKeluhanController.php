@@ -9,7 +9,8 @@ use Illuminate\Http\Request;
 
 class PengajuanKeluhanController extends Controller
 {
-    public function buat_keluhan(Request $request){
+    public function buat_keluhan(Request $request)
+    {
         $request->validate([
             'id_akun' => 'required',
             'judul_laporan' => 'required',
@@ -30,15 +31,20 @@ class PengajuanKeluhanController extends Controller
             'tanggal_kejadian' => $request->tanggal_kejadian,
             'upload_file_pendukung' => $request->upload_file_pendukung
         ]);
-        return ApiFormater::createApi(200,'Succeas',['kode'=>'1',
-        'data'=> $pengajuanKeluhan]);
-    }public function get_pengajuan_keluhan(){
+        return ApiFormater::createApi(200, 'Succeas', [
+            'kode' => '1',
+            'data' => $pengajuanKeluhan
+        ]);
+    }
+    public function get_pengajuan_keluhan()
+    {
         $list_ppid = PengajuanKeluhan::all();
-        return ApiFormater::createApi(200,'Berhasil',$list_ppid);
-        }
-        public function get_pengajuan_keluhan_by_id(Request $request){
-            $request -> validate(['id_akun' => 'required']);
-            $list_ppid_by_id = PengajuanKeluhan::all()-> where('id_akun','=',$request->id_akun);
-            return ApiFormater::createApi(200,'Berhasil',$list_ppid_by_id);
-        }
+        return ApiFormater::createApi(200, 'Berhasil', $list_ppid);
+    }
+    public function get_pengajuan_keluhan_by_id(Request $request)
+    {
+        $request->validate(['id_akun' => 'required']);
+        $list_ppid_by_id = PengajuanKeluhan::all()->where('id_akun', '=', $request->id_akun);
+        return ApiFormater::createApi(200, 'Berhasil', $list_ppid_by_id);
+    }
 }

@@ -7,12 +7,14 @@ use App\Http\Controllers\Controller;
 use App\Models\PengajuanKeluhan;
 use App\Models\PengajuanPPIDModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class PengajuanPPIDController extends Controller
 {
     //
-    public function create_pengajuan(Request $request){
-        $request -> validate(
+    public function create_pengajuan(Request $request)
+    {
+        $request->validate(
             [
                 'id_akun' => 'required',
                 'judul_laporan' => 'required',
@@ -20,29 +22,42 @@ class PengajuanPPIDController extends Controller
                 'asal_pelapor' => 'required',
                 'kategori_ppid' => 'required',
                 'upload_file_pendukung' => 'required'
-            ]);
-            $PengajuanPPID = PengajuanPPIDModel::create([
-                'id_akun' => $request-> id_akun
-            ,'judul_laporan' => $request-> judul_laporan,
-            'isi_laporan' => $request-> isi_laporan,
-            'asal_pelapor' => $request-> asal_pelapor,
-            'kategori_ppid' => $request -> kategori_ppid,
-            'upload_file_pendukung'=> $request-> upload_file_pendukung
             ]
-            );
-            return ApiFormater::createApi(200,'Succes',['kode'=>'1','data'=> $PengajuanPPID]);
+        );
+        $PengajuanPPID = PengajuanPPIDModel::create(
+            [
+                'id_akun' => $request->id_akun, 'judul_laporan' => $request->judul_laporan,
+                'isi_laporan' => $request->isi_laporan,
+                'asal_pelapor' => $request->asal_pelapor,
+                'kategori_ppid' => $request->kategori_ppid,
+                'upload_file_pendukung' => $request->upload_file_pendukung
+            ]
+        );
+        return ApiFormater::createApi(200, 'Succes', ['kode' => '1', 'data' => $PengajuanPPID]);
+    }
+
+    public function upload_file_ppid(Request $request)
+    {
+        if ($request->hasFile('file')) {
+            $path = $request->file('file');
+            $newName = $path->getClientOriginalName();
+            $pathAkhir = $path->storeAs('public/ppid', $newName);
+            return ApiFormater::createApi(200, 'Succes', ['kode' => '1', 'data' => $pathAkhir]);
+        } else {
+            return ApiFormater::createApi(400, 'Succes', ['kode' => '69', 'data' => 'eror']);
         }
-
-
-    public function get_pengajuan(){
-    $list_ppid = PengajuanPPIDModel::all();
-    return ApiFormater::createApi(200,'Berhasil',$list_ppid);
-    }
-    public function get_pengajuan_by_id(Request $request){
-        $request -> validate(['id_akun' => 'required']);
-        $list_ppid_by_id = PengajuanPPIDModel::all()-> where('id_akun','=',$request->id_akun);
-        return ApiFormater::createApi(200,'Berhasil',$list_ppid_by_id);
     }
 
 
+    public function get_pengajuan()
+    {
+        $list_ppid = PengajuanPPIDModel::all();
+        return ApiFormater::createApi(200, 'Berhasil', $list_ppid);
+    }
+    public function get_pengajuan_by_id(Request $request)
+    {
+        $request->validate(['id_akun' => 'required']);
+        $list_ppid_by_id = PengajuanPPIDModel::all()->where('id_akun', '=', $request->id_akun);
+        return ApiFormater::createApi(200, 'Berhasil', $list_ppid_by_id);
+    }
 }
