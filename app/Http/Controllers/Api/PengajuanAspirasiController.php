@@ -10,13 +10,14 @@ use Exception;
 
 class PengajuanAspirasiController extends Controller
 {
-    public function buat_aspirasi(Request $request){
-        try{
+    public function buat_aspirasi(Request $request)
+    {
+        try {
             $request->validate([
                 "id_akun" => "required",
                 "judul_aspirasi" => "required",
                 "isi_aspirasi" => "required",
-                "upload_file_pendukung" => "required"
+                // "upload_file_pendukung" => "required"
             ]);
             $pengajuanApirasi = PengajuanAspirasi::create([
                 'id_akun' => $request->id_akun,
@@ -24,22 +25,37 @@ class PengajuanAspirasiController extends Controller
                 'isi_aspirasi' => $request->isi_aspirasi,
                 'upload_file_pendukung' => $request->upload_file_pendukung,
             ]);
-            return ApiFormater::createApi(200,'Succeas',['kode'=>'1',
-            'data'=> $pengajuanApirasi]);
-        } catch (Exception $e){
-            return ApiFormater::createApi(200,'Succeas',['kode'=>'1',
-            'data'=> $e-> getMessage()]);
-
+            return ApiFormater::createApi(200, 'Succeas', [
+                'kode' => '1',
+                'data' => $pengajuanApirasi
+            ]);
+        } catch (Exception $e) {
+            return ApiFormater::createApi(200, 'Succeas', [
+                'kode' => '1',
+                'data' => $e->getMessage()
+            ]);
         }
-
     }
-    public function get_aspirasi(){
+    public function upload_file_aspirasi(Request $request)
+    {
+        if ($request->hasFile('file')) {
+            $path = $request->file('file');
+            $newName = $path->getClientOriginalName();
+            $pathAkhir = $path->storeAs('public/aspirasi', $newName);
+            return ApiFormater::createApi(200, 'Succes', ['kode' => '1', 'data' => $pathAkhir]);
+        } else {
+            return ApiFormater::createApi(400, 'Succes', ['kode' => '69', 'data' => 'eror']);
+        }
+    }
+    public function get_aspirasi()
+    {
         $list_ppid = PengajuanAspirasi::all();
-        return ApiFormater::createApi(200,'Berhasil',$list_ppid);
-        }
-        public function get_aspirasi_by_id(Request $request){
-            $request -> validate(['id_akun' => 'required']);
-            $list_ppid_by_id = PengajuanAspirasi::all()-> where('id_akun','=',$request->id_akun);
-            return ApiFormater::createApi(200,'Berhasil',$list_ppid_by_id);
-        }
+        return ApiFormater::createApi(200, 'Berhasil', $list_ppid);
+    }
+    public function get_aspirasi_by_id(Request $request)
+    {
+        $request->validate(['id_akun' => 'required']);
+        $list_ppid_by_id = PengajuanAspirasi::all()->where('id_akun', '=', $request->id_akun);
+        return ApiFormater::createApi(200, 'Berhasil', $list_ppid_by_id);
+    }
 }

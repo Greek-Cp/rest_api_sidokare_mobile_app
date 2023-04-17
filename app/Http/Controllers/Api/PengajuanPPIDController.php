@@ -21,7 +21,7 @@ class PengajuanPPIDController extends Controller
                 'isi_laporan' => 'required',
                 'asal_pelapor' => 'required',
                 'kategori_ppid' => 'required',
-                'upload_file_pendukung' => 'required'
+                // 'upload_file_pendukung' => 'required'
             ]
         );
         $PengajuanPPID = PengajuanPPIDModel::create(

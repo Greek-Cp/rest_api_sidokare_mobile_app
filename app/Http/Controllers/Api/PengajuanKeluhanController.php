@@ -19,7 +19,7 @@ class PengajuanKeluhanController extends Controller
             'lokasi_kejadian' => 'required',
             'kategori_laporan' => 'required',
             'tanggal_kejadian' => 'required',
-            'upload_file_pendukung' => 'required'
+            // 'upload_file_pendukung' => 'required'
         ]);
         $pengajuanKeluhan = PengajuanKeluhan::create([
             'id_akun' => $request->id_akun,
@@ -35,6 +35,18 @@ class PengajuanKeluhanController extends Controller
             'kode' => '1',
             'data' => $pengajuanKeluhan
         ]);
+    }
+
+    public function upload_file_keluhan(Request $request)
+    {
+        if ($request->hasFile('file')) {
+            $path = $request->file('file');
+            $newName = $path->getClientOriginalName();
+            $pathAkhir = $path->storeAs('public/keluhan', $newName);
+            return ApiFormater::createApi(200, 'Succes', ['kode' => '1', 'data' => $pathAkhir]);
+        } else {
+            return ApiFormater::createApi(400, 'Succes', ['kode' => '69', 'data' => 'eror']);
+        }
     }
     public function get_pengajuan_keluhan()
     {
