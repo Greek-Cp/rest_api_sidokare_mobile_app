@@ -10,10 +10,12 @@ class Akun extends Model
     use HasFactory;
     public $timestamps = false;
     protected $table = 'akun';
-    protected $fillable =['nama',
-    'email',
-    'password',
-    'nomor_telepon',
-    'role',
-'otp','status_verif'];
+    protected $fillable = [
+        'id_akun', 'nama',
+        'email',
+        'password',
+        'nomor_telepon',
+        'role',
+        'otp', 'status_verif'
+    ];
 }

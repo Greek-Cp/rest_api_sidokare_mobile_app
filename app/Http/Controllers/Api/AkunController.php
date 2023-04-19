@@ -15,7 +15,7 @@ class AkunController extends Controller
         Request $request
     ) {
         $request->validate(['email' => 'required', 'password' => 'required']);
-        $akun = Akun::where('email', '=', $request->email)->first();
+        $akun = Akun::where('email', '=', $request->email)->where('password', '=', $request->password)->where('status_verif', '=', '1')->first();
         if ($akun) {
             $status = [
                 'status_login' => 1,
@@ -30,6 +30,13 @@ class AkunController extends Controller
             ];
             return ApiFormater::createApi(400, 'Akun Tidak Ditemukan', $status);
         }
+    }
+
+    public function DetailAkun(Request $request)
+    {
+        $request->validate(['id_akun' => 'required']);
+        $DataUser = Akun::where('id_akun', '=', $request->id_akun)->get();
+        return ApiFormater::createApi(200, 'Berhasil Mendapatkan Detail Akun', $DataUser);
     }
 
     public function checkEmail(
