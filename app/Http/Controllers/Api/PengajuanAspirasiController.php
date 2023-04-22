@@ -55,7 +55,7 @@ class PengajuanAspirasiController extends Controller
     public function get_aspirasi_by_id(Request $request)
     {
         $request->validate(['id_akun' => 'required']);
-        $list_ppid_by_id = PengajuanAspirasi::all()->where('id_akun', '=', $request->id_akun);
+        $list_ppid_by_id = PengajuanAspirasi::all()->where('id_akun', '=', $request->id_akun)->values();
         return ApiFormater::createApi(200, 'Berhasil', $list_ppid_by_id);
     }
 }
