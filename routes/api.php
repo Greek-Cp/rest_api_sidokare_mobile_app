@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AkunController;
 use App\Http\Controllers\Api\BeritaController;
 use App\Http\Controllers\Api\JumlahLaporan;
+use App\Http\Controllers\api\KomentarController;
 use App\Http\Controllers\Api\PengajuanAspirasiController;
 use App\Http\Controllers\Api\PengajuanKeluhan;
 use App\Http\Controllers\Api\PengajuanKeluhanController;
@@ -49,6 +50,10 @@ Route::get('pengajuan/get_pengajuan_aspirasi', [PengajuanAspirasiController::cla
 Route::post('pengajuan/get_pengajuan_aspirasi_byid', [PengajuanAspirasiController::class, 'get_aspirasi_by_id']);
 
 Route::get('jumlahLaporan/Jumlahhnya', [JumlahLaporan::class, 'CountTable']);
+
+Route::post('komentar/getkomentar',[KomentarController::class,'getListKomentarById']);
+
+Route::post('komentar/buatkomentar',[KomentarController::class,'buatKomentarById']);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
