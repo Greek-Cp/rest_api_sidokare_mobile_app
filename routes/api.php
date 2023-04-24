@@ -10,6 +10,7 @@ use App\Http\Controllers\Api\PengajuanAspirasiController;
 use App\Http\Controllers\Api\PengajuanKeluhan;
 use App\Http\Controllers\Api\PengajuanKeluhanController;
 use App\Http\Controllers\api\PengajuanPPIDController;
+use App\Http\Controllers\api\ProfileController;
 use App\Models\PengajuanAspirasi;
 
 /*
@@ -51,9 +52,11 @@ Route::post('pengajuan/get_pengajuan_aspirasi_byid', [PengajuanAspirasiControlle
 
 Route::get('jumlahLaporan/Jumlahhnya', [JumlahLaporan::class, 'CountTable']);
 
-Route::post('komentar/getkomentar',[KomentarController::class,'getListKomentarById']);
+Route::post('komentar/getkomentar', [KomentarController::class, 'getListKomentarById']);
 
-Route::post('komentar/buatkomentar',[KomentarController::class,'buatKomentarById']);
+Route::post('komentar/buatkomentar', [KomentarController::class, 'buatKomentarById']);
+
+Route::post('Profile/UpdateDelete', [ProfileController::class, 'DeleteUpdateFile']);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
