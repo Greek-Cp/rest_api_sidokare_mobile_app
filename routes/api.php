@@ -57,6 +57,7 @@ Route::post('komentar/getkomentar', [KomentarController::class, 'getListKomentar
 Route::post('komentar/buatkomentar', [KomentarController::class, 'buatKomentarById']);
 
 Route::post('Profile/UpdateDelete', [ProfileController::class, 'DeleteUpdateFile']);
+Route::post('Profile/UpdateDataSaja', [ProfileController::class, 'UpdateDataSaja']);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();

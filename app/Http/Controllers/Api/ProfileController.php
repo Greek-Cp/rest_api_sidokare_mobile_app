@@ -30,4 +30,17 @@ class ProfileController extends Controller
             return ApiFormater::createApi(400, "Gagal", "Gagal");
         }
     }
+
+    public function UpdateDataSaja(Request $request)
+    {
+        $request->validate(['nama' => 'required', 'nomor_telepon' => 'required', 'id_akun' => 'required']);
+        $dataUpdate = Akun::where('id_akun', $request->id_akun)->update(['nama' => $request->nama, 'nomor_telepon' => $request->nomor_telepon]);
+        if ($dataUpdate) {
+            $status = ['pesan' => 'Ubah Sandi Berhasil', 'kode' => '1'];
+            return ApiFormater::createApi(200, 'Sukses', $status);
+        } else {
+            $status = ['pesan' => 'Gagal', 'kode' => '404'];
+            return ApiFormater::createApi(404, 'Gagal', $status);
+        }
+    }
 }
