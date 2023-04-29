@@ -11,7 +11,7 @@ class Akun extends Model
     public $timestamps = false;
     protected $table = 'akun';
     protected $fillable = [
-        'id_akun', 'nama',
+        'id_akun', 'nama', 'nik',
         'email',
         'password',
         'nomor_telepon',

@@ -26,7 +26,15 @@ class AkunController extends Controller
         } else {
             $status = [
                 'status_login' => '0',
-                'pesan' => 'Gagal'
+                'pesan' => 'Gagal',
+                'akun' => [
+                    'nama' => null,
+                    'id_akun' => null,
+                    'nik' => null,
+                    'email' => null,
+                    'profile_img' => null,
+                    'nomor_telepon' => null
+                ]
             ];
             return ApiFormater::createApi(400, 'Akun Tidak Ditemukan', $status);
         }
@@ -47,7 +55,7 @@ class AkunController extends Controller
         if ($akun == 1) {
             return ApiFormater::createApi(200, "Berhasil", ['Kode' => "1", "Pesan" => "akun telah ada"]);
         } else {
-            return ApiFormater::createApi(400, "Berhasil", ['Kode' => "1", "Pesan" => "akun telah ada"]);
+            return ApiFormater::createApi(400, "Gagal", ['Kode' => "1", "Pesan" => "Tomlol"]);
         }
     }
 
@@ -126,7 +134,8 @@ class AkunController extends Controller
                 'password' => 'required',
                 'role' => 'required',
                 'otp' => 'required',
-                'nama' => 'required'
+                'nama' => 'required',
+                'nik' => 'required'
             ]);
             $checkDataExists = Akun::where('email', '=', $request->email)->exists();
 
@@ -139,7 +148,8 @@ class AkunController extends Controller
                         'password' => $request->password,
                         'role' => $request->role,
                         'otp' => $request->otp,
-                        'nama' => $request->nama
+                        'nama' => $request->nama,
+                        'nik' => $request->nik
                     ]
                 );
                 $data = Akun::where('id_akun', '=', $akun->id)->get();

@@ -29,6 +29,7 @@ Route::post('akun/login', [AkunController::class, 'login']);
 Route::post('akun/getDetailAkun', [AkunController::class, 'DetailAkun']);
 Route::post('akun/get_otp', [AkunController::class, 'getOtp']);
 Route::post('akun/verifikasi_akun', [AkunController::class, 'verifikasiAccount']);
+Route::post('akun/chekEmail', [AkunController::class, 'checkEmail']);
 Route::post('akun/updatePassword', [AkunController::class, 'updatePassword']);
 Route::get('berita/get_berita', [BeritaController::class, 'getBeritaTerkini']);
 Route::get('berita/specific_berita2', [BeritaController::class, 'getBeritaModif2']);
