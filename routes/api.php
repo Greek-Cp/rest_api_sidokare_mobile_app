@@ -33,6 +33,8 @@ Route::post('akun/chekEmail', [AkunController::class, 'checkEmail']);
 Route::post('akun/updatePassword', [AkunController::class, 'updatePassword']);
 Route::get('berita/get_berita', [BeritaController::class, 'getBeritaTerkini']);
 Route::get('berita/specific_berita2', [BeritaController::class, 'getBeritaModif2']);
+Route::get('berita/specific_berita3', [BeritaController::class, 'getBeritaModif3']);
+
 Route::post('berita/specific_berita', [BeritaController::class, 'getBeritaSpesific']);
 //ppid
 Route::post('pengajuan/ppid', [PengajuanPPIDController::class, 'create_pengajuan']);

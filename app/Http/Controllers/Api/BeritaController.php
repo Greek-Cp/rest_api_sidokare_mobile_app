@@ -38,4 +38,12 @@ class BeritaController extends Controller
             ->whereBetween('berita.tanggal_publikasi', [$start_date, $end_date])->get();
         return ApiFormater::createApi(200, 'Berhasil', $results);
     }
+    public function getBeritaModif3()
+    {
+
+        $results = DB::table('berita')
+            ->join('akun', 'berita.id_akun', '=', 'akun.id_akun')->join('kategori_berita', 'kategori_berita.id_kategori', '=', 'berita.id_kategori')
+            ->select('berita.id_berita', 'kategori_berita.nama_kategori', 'akun.id_akun', 'akun.nama', 'akun.profile_img', 'berita.tanggal_publikasi', 'berita.id_kategori', 'berita.judul_berita', 'berita.isi_berita', 'berita.foto', 'berita.unggah_file_lain')->get();
+        return ApiFormater::createApi(200, 'Berhasil', $results);
+    }
 }
