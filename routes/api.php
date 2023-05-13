@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AkunController;
 use App\Http\Controllers\Api\BeritaController;
 use App\Http\Controllers\Api\JumlahLaporan;
+use App\Http\Controllers\Api\Keberatan;
 use App\Http\Controllers\api\KomentarController;
 use App\Http\Controllers\Api\PengajuanAspirasiController;
 use App\Http\Controllers\Api\PengajuanKeluhan;
@@ -62,6 +63,9 @@ Route::post('komentar/buatkomentar', [KomentarController::class, 'buatKomentarBy
 
 Route::post('Profile/UpdateDelete', [ProfileController::class, 'DeleteUpdateFile']);
 Route::post('Profile/UpdateDataSaja', [ProfileController::class, 'UpdateDataSaja']);
+
+//keberatan
+Route::post('Keberatan/keberatanPPID', [Keberatan::class, 'BuatKeberatanPPID']);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
