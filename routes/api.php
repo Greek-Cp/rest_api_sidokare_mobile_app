@@ -41,6 +41,7 @@ Route::post('pengajuan/ppid', [PengajuanPPIDController::class, 'create_pengajuan
 Route::post('pengajuan/uploadfileppid', [PengajuanPPIDController::class, 'upload_file_ppid']);
 Route::get('pengajuan/getpengajuan', [PengajuanPPIDController::class, 'get_pengajuan']);
 Route::post('pengajuan/getpengajuan_byid', [PengajuanPPIDController::class, 'get_pengajuan_by_id']);
+Route::post('pengajuan/deleteppid', [PengajuanPPIDController::class, 'DeletePPID']);
 
 //keluhan
 Route::post('pengajuan/keluhan', [PengajuanKeluhanController::class, 'buat_keluhan']);

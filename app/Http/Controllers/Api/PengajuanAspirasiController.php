@@ -17,7 +17,7 @@ class PengajuanAspirasiController extends Controller
                 "id_akun" => "required",
                 "judul_aspirasi" => "required",
                 "isi_aspirasi" => "required",
-                // "upload_file_pendukung" => "required"
+                "upload_file_pendukung" => "required"
             ]);
             $pengajuanApirasi = PengajuanAspirasi::create([
                 'id_akun' => $request->id_akun,

@@ -11,14 +11,19 @@ class PengajuanPPIDModel extends Model
     public $timestamps = false;
 
 
-    protected $table = 'pengajuan_ppid';
+    protected $table = 'pengajuan_ppids';
     protected $fillable = [
         'id_akun',
+        'nama_pelapor',
+        'no_telfon',
+        'email',
         'judul_laporan',
         'isi_laporan',
-        'asal_pelapor',
+        'Alamat',
         'kategori_ppid',
-        'upload_file_pendukung'
+        'upload_file_pendukung',
+        'status',
+        'RT',
+        'RW'
     ];
-
 }
