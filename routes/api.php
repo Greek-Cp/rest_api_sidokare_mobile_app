@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AkunController;
 use App\Http\Controllers\Api\BeritaController;
 use App\Http\Controllers\Api\JumlahLaporan;
+use App\Http\Controllers\Api\Keberatan;
 use App\Http\Controllers\api\KomentarController;
 use App\Http\Controllers\Api\PengajuanAspirasiController;
 use App\Http\Controllers\Api\PengajuanKeluhan;
@@ -41,6 +42,7 @@ Route::post('pengajuan/ppid', [PengajuanPPIDController::class, 'create_pengajuan
 Route::post('pengajuan/uploadfileppid', [PengajuanPPIDController::class, 'upload_file_ppid']);
 Route::get('pengajuan/getpengajuan', [PengajuanPPIDController::class, 'get_pengajuan']);
 Route::post('pengajuan/getpengajuan_byid', [PengajuanPPIDController::class, 'get_pengajuan_by_id']);
+Route::post('pengajuan/deleteppid', [PengajuanPPIDController::class, 'DeletePPID']);
 
 //keluhan
 Route::post('pengajuan/keluhan', [PengajuanKeluhanController::class, 'buat_keluhan']);
@@ -63,6 +65,9 @@ Route::post('komentar/editKomentar', [KomentarController::class, 'updateIsiKomen
 Route::post('komentar/hapus_komentar',[KomentarController::class,'hapusKomentarById']);
 Route::post('Profile/UpdateDelete', [ProfileController::class, 'DeleteUpdateFile']);
 Route::post('Profile/UpdateDataSaja', [ProfileController::class, 'UpdateDataSaja']);
+
+//keberatan
+Route::post('Keberatan/keberatanPPID', [Keberatan::class, 'BuatKeberatanPPID']);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
