@@ -35,4 +35,65 @@ class KomentarController extends Controller
         ]);
         return ApiFormater::createApi(200, "Succes", $komentar);
     }
+    public function hapusKomentarById(Request $request){
+        $request->validate([
+            'id_berita' => 'required',
+            'id_akun' => 'required',
+            'waktu_berkomentar' => 'required',
+            'id_komentar' => 'required',
+        ]);
+
+        $idBerita = $request->input('id_berita');
+        $idAkun = $request->input('id_akun');
+        $waktuBerkomentar = $request->input('waktu_berkomentar');
+        $idKomentar = $request->input('id_komentar');
+
+        $komentar = Komentar::where('id_berita', $idBerita)
+            ->where('id_akun', $idAkun)
+            ->where('waktu_berkomentar', $waktuBerkomentar)
+            ->where('id_komentar', $idKomentar)
+            ->delete();
+        // Jika komentar berhasil dihapus
+        if ($komentar) {
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Komentar berhasil dihapus.'
+            ]);
+        }
+
+        // Jika komentar tidak ditemukan atau gagal dihapus
+        return response()->json([
+            'status' => 'error',
+            'message' => 'Gagal menghapus komentar.'
+        ]);
+    }
+
+    public function updateIsiKomentar(Request $request)
+    {
+            $request->validate([
+                'id_komentar' => 'required',
+                'isi_komentar' => 'required'
+            ]);
+
+            $data = Komentar::where('id_komentar', '=', $request->id_komentar);
+            $checkAcc = Komentar::where('id_komentar', '=', $request->id_komentar)->exists();
+
+            // echo $checkAcc . ":" . $request->email;
+            if ($checkAcc == 1) {
+                $data->update(['isi_komentar' => $request->isi_komentar]);
+                if ($data) {
+                    $status = ['pesan' => 'Ubah Komentar Berhasil', 'kode' => '1'];
+                    return ApiFormater::createApi(200, 'Sukses', $status);
+                } else {
+                    $status = ['pesan' => 'Ubah Komentar Gagal', 'kode' => '0'];
+                    return ApiFormater::createApi(404, 'Not Found', $status);
+                }
+            } else {
+                $status = ['pesan' => 'Ubah Komentar Gagal', 'kode' => '0'];
+                return ApiFormater::createApi(404, 'Not Found', $status);
+            }
+    }
+
+
+
 }
