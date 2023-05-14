@@ -16,14 +16,15 @@ class PengajuanAspirasiController extends Controller
             $request->validate([
                 "id_akun" => "required",
                 "judul_aspirasi" => "required",
-                "isi_aspirasi" => "required",
-                "upload_file_pendukung" => "required"
+                "isi_aspirasi" => "required"
+
             ]);
             $pengajuanApirasi = PengajuanAspirasi::create([
                 'id_akun' => $request->id_akun,
                 'judul_aspirasi' => $request->judul_aspirasi,
                 'isi_aspirasi' => $request->isi_aspirasi,
                 'upload_file_pendukung' => $request->upload_file_pendukung,
+                'status' => 'diajukan'
             ]);
             return ApiFormater::createApi(200, 'Succeas', [
                 'kode' => '1',

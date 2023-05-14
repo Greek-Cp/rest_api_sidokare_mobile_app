@@ -66,6 +66,8 @@ Route::post('Profile/UpdateDataSaja', [ProfileController::class, 'UpdateDataSaja
 
 //keberatan
 Route::post('Keberatan/keberatanPPID', [Keberatan::class, 'BuatKeberatanPPID']);
+Route::post('Keberatan/keberatanAspirasi', [Keberatan::class, 'BuatKeberatanAspirasi']);
+
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
