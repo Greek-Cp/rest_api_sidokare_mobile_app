@@ -61,6 +61,8 @@ Route::post('komentar/getkomentar', [KomentarController::class, 'getListKomentar
 
 Route::post('komentar/buatkomentar', [KomentarController::class, 'buatKomentarById']);
 
+Route::post('komentar/editKomentar', [KomentarController::class, 'updateIsiKomentar']);
+Route::post('komentar/hapus_komentar',[KomentarController::class,'hapusKomentarById']);
 Route::post('Profile/UpdateDelete', [ProfileController::class, 'DeleteUpdateFile']);
 Route::post('Profile/UpdateDataSaja', [ProfileController::class, 'UpdateDataSaja']);
 
