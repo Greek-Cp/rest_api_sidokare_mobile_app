@@ -62,15 +62,18 @@ Route::post('komentar/getkomentar', [KomentarController::class, 'getListKomentar
 Route::post('komentar/buatkomentar', [KomentarController::class, 'buatKomentarById']);
 
 Route::post('komentar/editKomentar', [KomentarController::class, 'updateIsiKomentar']);
-Route::post('komentar/hapus_komentar',[KomentarController::class,'hapusKomentarById']);
+Route::post('komentar/hapus_komentar', [KomentarController::class, 'hapusKomentarById']);
 Route::post('Profile/UpdateDelete', [ProfileController::class, 'DeleteUpdateFile']);
 Route::post('Profile/UpdateDataSaja', [ProfileController::class, 'UpdateDataSaja']);
 
 //keberatan
 Route::post('Keberatan/keberatanPPID', [Keberatan::class, 'BuatKeberatanPPID']);
 Route::post('Keberatan/keberatanAspirasi', [Keberatan::class, 'BuatKeberatanAspirasi']);
+Route::post('Keberatan/keberatanKeluhan', [Keberatan::class, 'BuatKeberatanKeluhan']);
 
-
+Route::post('Keberatan/jumlahKeberatan', [Keberatan::class, 'CountKeberatanPPID']);
+Route::post('Keberatan/jumlahKeberatanAspirasi', [Keberatan::class, 'CountKeberatanAspirasi']);
+Route::post('Keberatan/jumlahKeberatanKeluhan', [Keberatan::class, 'CountKeberatanKeluhan']);
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });

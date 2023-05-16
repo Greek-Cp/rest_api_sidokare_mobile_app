@@ -19,6 +19,8 @@ class PengajuanKeluhanController extends Controller
             'lokasi_kejadian' => 'required',
             'kategori_laporan' => 'required',
             'tanggal_kejadian' => 'required',
+            'RT' => 'required',
+            'RW' => 'required'
             // 'upload_file_pendukung' => 'required'
         ]);
         $pengajuanKeluhan = PengajuanKeluhan::create([
@@ -29,7 +31,10 @@ class PengajuanKeluhanController extends Controller
             'lokasi_kejadian' => $request->lokasi_kejadian,
             'kategori_laporan' => $request->kategori_laporan,
             'tanggal_kejadian' => $request->tanggal_kejadian,
-            'upload_file_pendukung' => $request->upload_file_pendukung
+            'upload_file_pendukung' => $request->upload_file_pendukung,
+            'status' => 'diajukan',
+            'RT' => $request->RT,
+            'RW' => $request->RW
         ]);
         return ApiFormater::createApi(200, 'Succeas', [
             'kode' => '1',

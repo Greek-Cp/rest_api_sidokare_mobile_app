@@ -19,7 +19,9 @@ class PengajuanKeluhan extends Model
         'lokasi_kejadian',
         'kategori_laporan',
         'tanggal_kejadian',
-        'upload_file_pendukung'
+        'upload_file_pendukung',
+        'status',
+        'RT',
+        'RW'
     ];
-
 }
