@@ -10,6 +10,7 @@ class Keberatan_PPID extends Model
     use HasFactory;
 
     protected $table = 'keberatan_ppid';
+    //rubah id_ppid to id
 
-    protected $fillable = ['id_akun', 'alamat', 'alasan', 'catatan_tambahan', 'id_ppid'];
+    protected $fillable = ['id_akun', 'alamat', 'alasan', 'catatan_tambahan', 'id'];
 }

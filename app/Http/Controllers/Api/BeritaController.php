@@ -21,10 +21,11 @@ class BeritaController extends Controller
         $request->validate((['id_kategori' => 'required']));
         // $kategori_berita = KategoriBerita::where('id_kategori', '=', $request->id_kategori)->first();
         // $berita = Berita::where('id_kategori', '=', $kategori_berita['id_kategori'])->get()->values(); // menggunakan method values() untuk mengubah data menjadi array
+        //Ubah id_berita => id semuaaa
         $berita = DB::table('berita')
             ->join('akun', 'berita.id_akun', '=', 'akun.id_akun')
             ->join('kategori_berita', 'kategori_berita.id_kategori', '=', 'berita.id_kategori')
-            ->select('berita.id_berita', 'kategori_berita.nama_kategori', 'akun.id_akun', 'akun.nama', 'akun.profile_img', 'berita.tanggal_publikasi', 'berita.id_kategori', 'berita.judul_berita', 'berita.isi_berita', 'berita.foto', 'berita.unggah_file_lain')->where('berita.id_kategori', '=', $request->id_kategori)->get()->values();
+            ->select('berita.id', 'kategori_berita.nama_kategori', 'akun.id_akun', 'akun.nama', 'akun.profile_img', 'berita.tanggal_publikasi', 'berita.id_kategori', 'berita.judul_berita', 'berita.isi_berita', 'berita.foto', 'berita.unggah_file_lain')->where('berita.id_kategori', '=', $request->id_kategori)->get()->values();
         return ApiFormater::createApi(200, 'Berhasil', $berita);
     }
 
@@ -34,7 +35,7 @@ class BeritaController extends Controller
         $end_date = date('Y-m-d'); // hari ini
         $results = DB::table('berita')
             ->join('akun', 'berita.id_akun', '=', 'akun.id_akun')->join('kategori_berita', 'kategori_berita.id_kategori', '=', 'berita.id_kategori')
-            ->select('berita.id_berita', 'kategori_berita.nama_kategori', 'akun.id_akun', 'akun.nama', 'akun.profile_img', 'berita.tanggal_publikasi', 'berita.id_kategori', 'berita.judul_berita', 'berita.isi_berita', 'berita.foto', 'berita.unggah_file_lain')
+            ->select('berita.id', 'kategori_berita.nama_kategori', 'akun.id_akun', 'akun.nama', 'akun.profile_img', 'berita.tanggal_publikasi', 'berita.id_kategori', 'berita.judul_berita', 'berita.isi_berita', 'berita.foto', 'berita.unggah_file_lain')
             ->whereBetween('berita.tanggal_publikasi', [$start_date, $end_date])->get();
         return ApiFormater::createApi(200, 'Berhasil', $results);
     }
@@ -43,7 +44,7 @@ class BeritaController extends Controller
 
         $results = DB::table('berita')
             ->join('akun', 'berita.id_akun', '=', 'akun.id_akun')->join('kategori_berita', 'kategori_berita.id_kategori', '=', 'berita.id_kategori')
-            ->select('berita.id_berita', 'kategori_berita.nama_kategori', 'akun.id_akun', 'akun.nama', 'akun.profile_img', 'berita.tanggal_publikasi', 'berita.id_kategori', 'berita.judul_berita', 'berita.isi_berita', 'berita.foto', 'berita.unggah_file_lain')->get();
+            ->select('berita.id', 'kategori_berita.nama_kategori', 'akun.id_akun', 'akun.nama', 'akun.profile_img', 'berita.tanggal_publikasi', 'berita.id_kategori', 'berita.judul_berita', 'berita.isi_berita', 'berita.foto', 'berita.unggah_file_lain')->get();
         return ApiFormater::createApi(200, 'Berhasil', $results);
     }
 }

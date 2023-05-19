@@ -49,24 +49,25 @@ class Keberatan extends Controller
     }
     public function BuatKeberatanPPID(Request $request)
     {
+        //rubah id_ppid => id
         try {
             $request->validate([
                 'id_akun' => "required",
                 "alamat" => "required",
                 "alasan" => "required",
                 "catatan_tambahan" => "required",
-                "id_ppid" => "required"
+                "id" => "required"
             ]);
             $pengajuanKeberanPPID = Keberatan_PPID::create([
                 "id_akun" => $request->id_akun,
                 "alamat" => $request->alamat,
                 "alasan" => $request->alasan,
                 "catatan_tambahan" => $request->catatan_tambahan,
-                "id_ppid" => $request->id_ppid,
+                "id" => $request->id,
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);
-            $updateStatus = PengajuanPPIDModel::where('id', '=', $request->id_ppid);
+            $updateStatus = PengajuanPPIDModel::where('id', '=', $request->id);
             $updateStatus->update(['status' => 'revisi']);
 
             return ApiFormater::createApi('200', 'succes', [
@@ -111,8 +112,8 @@ class Keberatan extends Controller
     }
     public function CountKeberatanPPID(Request $request)
     {
-
-        $jumlahKeberatanPPID = Keberatan_PPID::where('id_akun', '=', $request->id_akun)->where('id_ppid', '=', $request->id_ppid)->count();
+        //rubah where
+        $jumlahKeberatanPPID = Keberatan_PPID::where('id_akun', '=', $request->id_akun)->where('id', '=', $request->id)->count();
         if ($jumlahKeberatanPPID) {
             return ApiFormater::createApi(200, 'Data Berhasil ', $jumlahKeberatanPPID);
         } else {

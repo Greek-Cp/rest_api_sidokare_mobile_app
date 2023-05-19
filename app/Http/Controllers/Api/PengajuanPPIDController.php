@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Storage;
 
 class PengajuanPPIDController extends Controller
 {
-    //
+    //menambahkan tujuan 
     public function create_pengajuan(Request $request)
     {
         $request->validate(
@@ -24,6 +24,7 @@ class PengajuanPPIDController extends Controller
                 'judul_laporan' => 'required',
                 'isi_laporan' => 'required',
                 'Alamat' => 'required',
+                'tujuan' => 'required',
                 'kategori_ppid' => 'required',
                 'upload_file_pendukung' => 'required',
                 'RT' => 'required',
@@ -39,6 +40,7 @@ class PengajuanPPIDController extends Controller
                 'email' => $request->email,
                 'isi_laporan' => $request->isi_laporan,
                 'Alamat' => $request->Alamat,
+                'tujuan' => $request->tujuan,
                 'kategori_ppid' => $request->kategori_ppid,
                 'upload_file_pendukung' => $request->upload_file_pendukung,
                 'status' => 'diajukan',

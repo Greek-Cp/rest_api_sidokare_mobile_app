@@ -19,6 +19,7 @@ class PengajuanPPIDModel extends Model
         'email',
         'judul_laporan',
         'isi_laporan',
+        'tujuan',
         'Alamat',
         'kategori_ppid',
         'upload_file_pendukung',
