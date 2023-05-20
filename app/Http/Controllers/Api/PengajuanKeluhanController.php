@@ -41,7 +41,14 @@ class PengajuanKeluhanController extends Controller
             'data' => $pengajuanKeluhan
         ]);
     }
+    public function accKeluhan(Request $request)
+    {
+        $request->validate(['id_pengajuan_keluhan' => 'required']);
+        $updateStatus = PengajuanKeluhan::where('id_pengajuan_keluhan', '=', $request->id_pengajuan_keluhan);
+        $updateStatus->update(['status' => 'diterima']);
 
+        return ApiFormater::createApi(200, 'succes', 'Berhasil Update');
+    }
     public function upload_file_keluhan(Request $request)
     {
         if ($request->hasFile('file')) {
@@ -61,7 +68,7 @@ class PengajuanKeluhanController extends Controller
     public function get_pengajuan_keluhan_by_id(Request $request)
     {
         $request->validate(['id_akun' => 'required']);
-        $Data = PengajuanKeluhan::all()->where('id_akun', '=', $request->id_akun)->values();
+        $Data = PengajuanKeluhan::all()->where('id_akun', '=', $request->id_akun)->sortByDesc('id')->values();
         return ApiFormater::createApi(200, 'Berhasil', $Data);
     }
 }

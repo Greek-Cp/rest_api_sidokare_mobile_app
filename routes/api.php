@@ -42,6 +42,7 @@ Route::post('pengajuan/ppid', [PengajuanPPIDController::class, 'create_pengajuan
 Route::post('pengajuan/uploadfileppid', [PengajuanPPIDController::class, 'upload_file_ppid']);
 Route::get('pengajuan/getpengajuan', [PengajuanPPIDController::class, 'get_pengajuan']);
 Route::post('pengajuan/getpengajuan_byid', [PengajuanPPIDController::class, 'get_pengajuan_by_id']);
+Route::post('pengajuan/accppid', [PengajuanPPIDController::class, 'AccPPID']);
 Route::post('pengajuan/deleteppid', [PengajuanPPIDController::class, 'DeletePPID']);
 
 //keluhan
@@ -49,11 +50,13 @@ Route::post('pengajuan/keluhan', [PengajuanKeluhanController::class, 'buat_keluh
 Route::post('pengajuan/uploadfilekeluhan', [PengajuanKeluhanController::class, 'upload_file_keluhan']);
 Route::get('pengajuan/getpengajuan_keluhan', [PengajuanKeluhanController::class, 'get_pengajuan_keluhan']);
 Route::post('pengajuan/getpengajuan_keluhan_byid', [PengajuanKeluhanController::class, 'get_pengajuan_keluhan_by_id']);
+Route::post('pengajuan/accKeluhan', [PengajuanKeluhanController::class, 'accKeluhan']);
 //aspirasi
 Route::post('pengajuan/aspirasi', [PengajuanAspirasiController::class, 'buat_aspirasi']);
 Route::post('pengajuan/uploadfileaspirasi', [PengajuanAspirasiController::class, 'upload_file_aspirasi']);
 Route::get('pengajuan/get_pengajuan_aspirasi', [PengajuanAspirasiController::class, 'get_aspirasi']);
 Route::post('pengajuan/get_pengajuan_aspirasi_byid', [PengajuanAspirasiController::class, 'get_aspirasi_by_id']);
+Route::post('pengajuan/accaspirasi', [PengajuanAspirasiController::class, 'accAspirasi']);
 
 Route::get('jumlahLaporan/Jumlahhnya', [JumlahLaporan::class, 'CountTable']);
 

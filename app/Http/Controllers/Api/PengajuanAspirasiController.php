@@ -48,6 +48,14 @@ class PengajuanAspirasiController extends Controller
             return ApiFormater::createApi(400, 'Succes', ['kode' => '69', 'data' => 'eror']);
         }
     }
+    public function accAspirasi(Request $request)
+    {
+        $request->validate(['id_pengajuan_aspirasi' => 'required']);
+        $updateStatus = PengajuanAspirasi::where('id_pengajuan_aspirasi', '=', $request->id_pengajuan_aspirasi);
+        $updateStatus->update(['status' => 'diterima']);
+
+        return ApiFormater::createApi(200, 'succes', 'Berhasil Update');
+    }
     public function get_aspirasi()
     {
         $list_ppid = PengajuanAspirasi::all();
@@ -56,7 +64,8 @@ class PengajuanAspirasiController extends Controller
     public function get_aspirasi_by_id(Request $request)
     {
         $request->validate(['id_akun' => 'required']);
-        $list_ppid_by_id = PengajuanAspirasi::all()->where('id_akun', '=', $request->id_akun)->values();
+
+        $list_ppid_by_id = PengajuanAspirasi::all()->where('id_akun', '=', $request->id_akun)->sortByDesc('id')->values();
         return ApiFormater::createApi(200, 'Berhasil', $list_ppid_by_id);
     }
 }

@@ -51,6 +51,15 @@ class PengajuanPPIDController extends Controller
         return ApiFormater::createApi(200, 'Succes', ['kode' => '1', 'data' => $PengajuanPPID]);
     }
 
+    public function AccPPID(Request $request)
+    {
+        $request->validate(['id' => 'required']);
+        $updateStatus = PengajuanPPIDModel::where('id', '=', $request->id);
+        $updateStatus->update(['status' => 'diterima']);
+
+        return ApiFormater::createApi(200, 'succes', 'Berhasil Update');
+    }
+
     public function upload_file_ppid(Request $request)
     {
         if ($request->hasFile('file')) {
@@ -73,7 +82,6 @@ class PengajuanPPIDController extends Controller
     {
         $request->validate(['id_akun' => 'required']);
         $PPIDdata = PengajuanPPIDModel::all()->where('id_akun', '=', $request->id_akun)->sortByDesc('id')->values();
-
         return ApiFormater::createApi(200, 'Berhasil', $PPIDdata);
     }
 
